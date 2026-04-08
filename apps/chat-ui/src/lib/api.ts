@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:20301";
 
 export interface Model {
   name: string;
@@ -23,7 +23,7 @@ export async function fetchModels(): Promise<Model[]> {
 export async function sendMessage(
   model: string,
   messages: Message[],
-  onChunk: (content: string, done: boolean) => void
+  onChunk: (content: string, done: boolean) => void,
 ): Promise<void> {
   const res = await fetch(`${API_URL}/api/chat`, {
     method: "POST",
