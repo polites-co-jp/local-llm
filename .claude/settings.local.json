@@ -25,7 +25,16 @@
       "Bash(npx @playwright/mcp --caps --help)",
       "WebSearch",
       "WebFetch(domain:ollama.com)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(curl -s http://localhost:20302/api/tags)",
+      "Bash(docker exec:*)",
+      "Bash(docker compose:*)",
+      "Bash(curl -s http://localhost:20301/api/models)",
+      "Bash(curl -s -X POST http://localhost:20301/api/chat -H \"Content-Type: application/json\" -d '{\"model\":\"digitsflow/bonsai-8b:latest\",\"messages\":[{\"role\":\"user\",\"content\":\"Hello, say hi in one sentence\"}],\"stream\":false}')",
+      "Bash(curl -s -X POST http://localhost:20301/api/chat -H \"Content-Type: application/json\" -d '{\"model\":\"qwen2.5:7b\",\"messages\":[{\"role\":\"user\",\"content\":\"こんにちは、一言で自己紹介してください\"}],\"stream\":false}')",
+      "Bash(python -c ':*)"
     ],
     "additionalDirectories": [
       "d:\\develop\\DietRecordsViewer\\docs"
