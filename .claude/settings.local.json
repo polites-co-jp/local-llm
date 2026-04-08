@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:kokkai.ndl.go.jp)",
+      "Bash(find d:/develop/DietRecordsViewer -type f \\\\\\(-name *.sql -o -name *migration* -o -name *schema* \\\\\\))",
+      "Bash(find d:/develop/DietRecordsViewer -type d -name *db* -o -name *database*)",
+      "Bash(find d:/develop/DietRecordsViewer -type f -name docker-compose* -o -name *.env*)",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(git remote:*)",
+      "Bash(git pull:*)",
+      "mcp__claude_ai_Notion__notion-search",
+      "mcp__claude_ai_Notion__notion-fetch",
+      "mcp__claude_ai_Notion__notion-create-pages",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:192.168.1.110)",
+      "Bash(curl -s http://192.168.1.110:20101/api/reference)",
+      "Bash(docker volume:*)",
+      "Bash(npx @anthropic-ai/claude-code --version)",
+      "Bash(npx @playwright/mcp --help)",
+      "Bash(ls apps/batch/.env*)",
+      "Bash(npx @playwright/mcp --config --help)",
+      "Bash(npx @playwright/mcp --caps --help)",
+      "WebSearch",
+      "WebFetch(domain:ollama.com)",
+      "Bash(npm run:*)"
+    ],
+    "additionalDirectories": [
+      "d:\\develop\\DietRecordsViewer\\docs"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+services:
+  llm-engine:
+    image: ollama/ollama
+    container_name: llm-engine
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api-service:
+    build:
+      context: ./api-service
+      dockerfile: Dockerfile
+    container_name: api-service
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_BASE_URL=http://llm-engine:11434
+    depends_on:
+      llm-engine:
+        condition: service_healthy
+    restart: unless-stopped
+
+  chat-ui:
+    build:
+      context: ./chat-ui
+      dockerfile: Dockerfile
+    container_name: chat-ui
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - API_INTERNAL_URL=http://api-service:8000
+    depends_on:
+      - api-service
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

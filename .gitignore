@@ -1,0 +1,9 @@
+node_modules/
+.next/
+chat-ui/node_modules/
+chat-ui/.next/
+chat-ui/next-env.d.ts
+chat-ui/package-lock.json
+__pycache__/
+*.pyc
+.env

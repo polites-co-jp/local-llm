@@ -20,20 +20,16 @@ export function ChatWindow() {
       setMessages(updatedMessages);
       setIsLoading(true);
 
-      const assistantMessage: Message = { role: "assistant", content: "" };
-      setMessages([...updatedMessages, assistantMessage]);
+      setMessages([...updatedMessages, { role: "assistant", content: "" }]);
 
       try {
-        await sendMessage(selectedModel, updatedMessages, (content, done) => {
-          assistantMessage.content += content;
+        await sendMessage(selectedModel, updatedMessages, (content) => {
           setMessages((prev) => {
             const next = [...prev];
-            next[next.length - 1] = { ...assistantMessage };
+            const last = next[next.length - 1];
+            next[next.length - 1] = { ...last, content: last.content + content };
             return next;
           });
-          if (done) {
-            setIsLoading(false);
-          }
         });
       } catch (e) {
         const errorText =

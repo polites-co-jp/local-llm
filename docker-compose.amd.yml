@@ -1,0 +1,9 @@
+# AMD GPU (ROCm) 用オーバーライド
+# 使い方: docker compose -f docker-compose.yml -f docker-compose.amd.yml up -d
+services:
+  llm-engine:
+    image: ollama/ollama:rocm
+    deploy: {}
+    devices:
+      - /dev/kfd
+      - /dev/dri
