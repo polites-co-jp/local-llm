@@ -3,7 +3,7 @@ services:
     image: ollama/ollama
     container_name: llm-engine
     ports:
-      - "11434:11434"
+      - "20302:11434"
     volumes:
       - ollama_data:/root/.ollama
     deploy:
@@ -26,7 +26,7 @@ services:
       dockerfile: Dockerfile
     container_name: api-service
     ports:
-      - "8000:8000"
+      - "20301:8000"
     environment:
       - OLLAMA_BASE_URL=http://llm-engine:11434
     depends_on:
@@ -40,9 +40,9 @@ services:
       dockerfile: Dockerfile
     container_name: chat-ui
     ports:
-      - "3000:3000"
+      - "20300:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_API_URL=http://localhost:20301
       - API_INTERNAL_URL=http://api-service:8000
     depends_on:
       - api-service

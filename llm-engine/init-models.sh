@@ -4,7 +4,7 @@
 
 set -e
 
-OLLAMA_HOST="${OLLAMA_HOST:-http://localhost:11434}"
+OLLAMA_HOST="${OLLAMA_HOST:-http://localhost:20302}"
 
 echo "=== Ollama モデル初期化 ==="
 echo "Ollama Host: $OLLAMA_HOST"
