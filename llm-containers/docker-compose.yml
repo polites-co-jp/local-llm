@@ -22,8 +22,8 @@ services:
 
   api-service:
     build:
-      context: ./api-service
-      dockerfile: Dockerfile
+      context: ../apps/api-service
+      dockerfile: ../../llm-containers/Dockerfile.api
     container_name: api-service
     ports:
       - "20301:8000"
@@ -36,8 +36,8 @@ services:
 
   chat-ui:
     build:
-      context: ./chat-ui
-      dockerfile: Dockerfile
+      context: ../apps/chat-ui
+      dockerfile: ../../llm-containers/Dockerfile.chat-ui
     container_name: chat-ui
     ports:
       - "20300:3000"
