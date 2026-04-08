@@ -15,6 +15,28 @@
             "statusMessage": "未コミット・未プッシュの変更を確認中..."
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "apps/ または llm-containers/ 配下のファイルに変更がないか git diff --name-only HEAD~1 で確認してください。実装ファイルに変更がある場合、docs/ 配下の関連ドキュメントの内容が現在の実装と整合しているか確認し、不整合があれば更新してください。変更がなければ何もしないでください。ドキュメントの構成ルールは CLAUDE.md を参照してください。",
+            "timeout": 120,
+            "statusMessage": "docsの整合性を確認中..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import sys,json; d=json.load(sys.stdin); f=d.get('tool_response',{}).get('filePath') or d.get('tool_input',{}).get('file_path',''); print(f)\" | { read -r f; if [ -n \"$f\" ]; then npx prettier --write \"$f\" --ignore-unknown 2>/dev/null; fi; } || true",
+            "statusMessage": "Prettierでフォーマット中..."
+          }
+        ]
       }
     ],
     "PreToolUse": [
