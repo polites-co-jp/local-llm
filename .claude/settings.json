@@ -4,5 +4,30 @@
       "command": "npx",
       "args": ["@playwright/mcp@latest"]
     }
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then CHANGES=$(git status --porcelain 2>/dev/null); UNPUSHED=$(git log --oneline @{u}..HEAD 2>/dev/null); if [ -n \"$CHANGES\" ] || [ -n \"$UNPUSHED\" ]; then MSG=\"\"; if [ -n \"$CHANGES\" ]; then MSG=\"未コミットの変更があります。\"; fi; if [ -n \"$UNPUSHED\" ]; then MSG=\"${MSG}未プッシュのコミットがあります。\"; fi; echo \"{\\\"continue\\\":false,\\\"stopReason\\\":\\\"${MSG}コミット・プッシュしてから終了してください。\\\"}\"; fi; fi",
+            "statusMessage": "未コミット・未プッシュの変更を確認中..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "if": "Bash(git commit:*)",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "以下のgit commitコマンドのコミットメッセージを検証してください。\n\nルール:\n1. コミットメッセージは日本語で記述されていること（ひらがな・カタカナ・漢字を含むこと。Co-Authored-By行は英語で可）\n2. コミットメッセージが変更内容を具体的に反映していること（「修正」「変更」だけでは不十分）\n\nルールに違反している場合はブロックしてください。\n\n入力: $ARGUMENTS"
+          }
+        ]
+      }
+    ]
   }
 }
